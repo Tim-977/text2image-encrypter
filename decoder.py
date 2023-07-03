@@ -21,11 +21,13 @@ else:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
 
+
 def close():
     print("\nPress any key to exit...")
     while True:
         if get_key():
             break
+
 
 characters = [chr(i) for i in range(33, 127)]
 characters.append(' ')
