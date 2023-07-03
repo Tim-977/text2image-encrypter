@@ -1,6 +1,22 @@
-from PIL import Image
-from pprint import pprint
+from math import sqrt, ceil
 import sys
+
+from PIL import Image
+
+
+def rgb_to_hex(rgb):
+    if len(rgb) != 3:
+        raise ValueError("RGB tuple must have three components (R, G, B)")
+
+    if any(not 0 <= c <= 255 for c in rgb):
+        raise ValueError("RGB values must be integers between 0 and 255")
+
+    hex_components = [format(c, "02x") for c in rgb]
+
+    hex_string = "#" + "".join(hex_components)
+
+    return hex_string
+
 
 characters = [chr(i) for i in range(33, 127)]
 characters.append(' ')
@@ -10,12 +26,11 @@ dct = dict()
 for elem in characters:
     dct[elem] = '0' * 4 + hex(ord(elem))[2:]
 
-word = 'Hello everyone! How are u all guys doing?? I am doing very well btw, cya later ;))'
+word = 'Ideological considerations of the highest order, as well as the further development of various forms of activity, require the definition and refinement of a development model. Likewise, our ongoing advocacy plays an important role in shaping systems of mass participation. We should not forget, however, that the initiation of the daily work of shaping attitudes plays an important role in shaping new proposals. It should not be forgotten, however, that consultation with a broad constituency is very much a condition for the creation of a development model.'
 
 colors = [dct[elem] for elem in word]
 
-width = 10
-height = 10
+width = height = ceil(sqrt(len(word)))
 
 print(f"{len(word)} / {width * height} | .{round(len(word) / (width * height) * 100)}")
 
