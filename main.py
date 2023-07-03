@@ -139,10 +139,10 @@ while flag:
     print('Do you want to encode or decode? Enter (e/d)')
     choice = input()
 
-    if choice == 'e':
+    if choice.lower() == 'e':
         encode()
         flag = False
-    elif choice == 'd':
+    elif choice.lower() == 'd':
         decode()
         flag = False
     else:
