@@ -3,21 +3,6 @@ import sys
 
 from PIL import Image
 
-
-def rgb_to_hex(rgb):
-    if len(rgb) != 3:
-        raise ValueError("RGB tuple must have three components (R, G, B)")
-
-    if any(not 0 <= c <= 255 for c in rgb):
-        raise ValueError("RGB values must be integers between 0 and 255")
-
-    hex_components = [format(c, "02x") for c in rgb]
-
-    hex_string = "#" + "".join(hex_components)
-
-    return hex_string
-
-
 characters = [chr(i) for i in range(33, 127)]
 characters.append(' ')
 
