@@ -1,4 +1,31 @@
+import sys
+
 from PIL import Image
+
+if sys.platform == 'win32':
+    import msvcrt
+
+    def get_key():
+        return msvcrt.getch()
+
+else:
+    import termios
+    import tty
+
+    def get_key():
+        fd = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            return sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
+def close():
+    print("\nPress any key to exit...")
+    while True:
+        if get_key():
+            break
 
 characters = [chr(i) for i in range(33, 127)]
 characters.append(' ')
@@ -29,3 +56,5 @@ for y in range(height):
             encoded_text += dct[hex_color]
 
 print(encoded_text)
+
+close()

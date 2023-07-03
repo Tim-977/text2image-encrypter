@@ -11,7 +11,7 @@ dct = dict()
 for elem in characters:
     dct[elem] = '0' * 4 + hex(ord(elem))[2:]
 
-word = 'Ideological considerations of the highest order, as well as the further development of various forms of activity, require the definition and refinement of a development model. Likewise, our ongoing advocacy plays an important role in shaping systems of mass participation. We should not forget, however, that the initiation of the daily work of shaping attitudes plays an important role in shaping new proposals. It should not be forgotten, however, that consultation with a broad constituency is very much a condition for the creation of a development model.'
+word = input('Enter text:\n')
 
 colors = [dct[elem] for elem in word]
 
