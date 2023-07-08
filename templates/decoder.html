@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a class="btn btn-primary " href="/decoder_success">Decode</a>
+  <form action="/decoder_success" method="get">
+    <button type="submit">Decode</button>
+  </form>
 {% endblock %}

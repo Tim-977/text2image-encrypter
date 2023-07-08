@@ -7,15 +7,11 @@
       {{ form.text.label }}<br>
       {{ form.text(class="form-control", type="text") }}<br>
       {% for error in form.text.errors %}
-        <div class="alert alert-warning" role="alert">
-          {{ error }}
-        </div>
+        {{ error }}
       {% endfor %}
     </p>
     {% if message %}
-      <div class="alert alert-warning" role="alert">
-        {{ message }}
-      </div>
+      {{ message }}
     {% endif %}
   </form>
 {% endblock %}
