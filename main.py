@@ -1,37 +1,10 @@
-import sys
 from math import ceil, sqrt
 
 from PIL import Image
 
 # !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ 
 
-def encode():
-    if sys.platform == 'win32':
-        import msvcrt
-
-        def get_key():
-            return msvcrt.getch()
-
-    else:
-        import termios
-        import tty
-
-        def get_key():
-            fd = sys.stdin.fileno()
-            old_settings = termios.tcgetattr(fd)
-            try:
-                tty.setraw(fd)
-                return sys.stdin.read(1)
-            finally:
-                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-
-
-    def close():
-        print("\nPress any key to exit...")
-        while True:
-            if get_key():
-                break
-
+def encode(word):
 
     characters = [chr(i) for i in range(33, 127)]
     characters.append(' ')
@@ -41,19 +14,12 @@ def encode():
     for elem in characters:
         dct[elem] = '0' * 4 + hex(ord(elem))[2:]
 
-    print('Avaliable charset: !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ ')
-
-    word = input('Enter text:\n')
-
     try:
         colors = [dct[elem] for elem in word]
     except KeyError as exception:
-        print('Unexpected character', exception)
-        close()
+        return ('Unexpected character', exception)
 
     width = height = ceil(sqrt(len(word)))
-
-    print(f"\n{len(word)} / {width * height} | .{round(len(word) / (width * height) * 100)}")
 
     new_image = Image.new("RGB", (width, height))
 
@@ -71,35 +37,10 @@ def encode():
 
     new_image.save("output.png")
 
-    close()
+    return 'image saved successfully'
+
 
 def decode():
-    if sys.platform == 'win32':
-        import msvcrt
-
-        def get_key():
-            return msvcrt.getch()
-
-    else:
-        import termios
-        import tty
-
-        def get_key():
-            fd = sys.stdin.fileno()
-            old_settings = termios.tcgetattr(fd)
-            try:
-                tty.setraw(fd)
-                return sys.stdin.read(1)
-            finally:
-                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-
-
-    def close():
-        print("\nPress any key to exit...")
-        while True:
-            if get_key():
-                break
-
 
     characters = [chr(i) for i in range(33, 127)]
     characters.append(' ')
@@ -129,21 +70,4 @@ def decode():
             if hex_color in dct:
                 encoded_text += dct[hex_color]
 
-    print(encoded_text)
-
-    close()
-
-flag = True
-
-while flag:
-    print('Do you want to encode or decode? Enter (e/d)')
-    choice = input()
-
-    if choice.lower() == 'e':
-        encode()
-        flag = False
-    elif choice.lower() == 'd':
-        decode()
-        flag = False
-    else:
-        print('Unexpected answer, try again. (Type \'e\' or \'d\')\n')
+    return encoded_text
