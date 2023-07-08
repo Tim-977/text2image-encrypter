@@ -44,7 +44,7 @@ def decoder_success():
 
 @app.route('/download_image')
 def download_image():
-    image_path = 'output.png'
+    image_path = 'static\\output.png'
     filename = 'output.png'
     return send_file(image_path, as_attachment=True, attachment_filename=filename)
 
