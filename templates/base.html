@@ -13,8 +13,16 @@
   <title>{{ title }}</title>
 </head>
 <body>
-<main role="main" class="container">
-  {% block content %}{% endblock %}
-</main>
+  <header>
+    <nav class="navbar navbar-light bg-light">
+      <p>
+        <a class="btn btn-primary " href="/encoder">Encode</a>
+        <a class="btn btn-success" href="/decoder">Decode</a>
+      </p>
+    </nav>
+  </header>
+  <main role="main" class="container">
+    {% block content %}{% endblock %}
+  </main>
 </body>
 </html>
