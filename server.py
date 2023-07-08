@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, send_file
 
 from forms.user import InputTextForm
 from utils import decode, encode
@@ -40,6 +40,13 @@ def encoder_success():
 def decoder_success():
     text = decode()
     return render_template('decoder_success.html', text=text, title='Decoder success')
+
+
+@app.route('/download_image')
+def download_image():
+    image_path = 'output.png'
+    filename = 'output.png'
+    return send_file(image_path, as_attachment=True, attachment_filename=filename)
 
 
 if __name__ == '__main__':
