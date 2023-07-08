@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    The image has been downloaded
-  </h1>
-  <br>
-  <a class="btn btn-primary" href="/download_image">Download image</a>
+  <div class="card" style="width:400px">
+    <img class="card-img-top" src="static/output.png" alt="image">
+    <div class="card-body">
+      <h4 class="card-title">Result</h4>
+      <a href="/download_image" class="btn btn-primary">Download</a>
+    </div>
+  </div>
   <h6>
     {{ text }}
   </h6>

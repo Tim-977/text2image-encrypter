@@ -35,7 +35,7 @@ def encode(word):
             rgb_color = tuple(int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
             pixels[x, y] = rgb_color
 
-    new_image.save("output.png")
+    new_image.save("static\\output.png")
 
     return 'image saved successfully'
 
@@ -50,7 +50,7 @@ def decode():
     for elem in characters:
         dct['0' * 4 + hex(ord(elem))[2:]] = elem
 
-    image_path = "output.png"
+    image_path = "static\\output.png"
     encoded_text = ""
 
     image = Image.open(image_path)
