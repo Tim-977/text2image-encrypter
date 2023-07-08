@@ -19,12 +19,12 @@ def encoder():
     if form.validate_on_submit():
         text = str(form.text.data)
         return redirect('/encoder_success')
-    return render_template('encoder.html', form=form)
+    return render_template('encoder.html', form=form, title='Encoder')
 
 
 @app.route('/decoder', methods=['GET', 'POST'])
 def decoder():
-    return render_template('decoder.html')
+    return render_template('decoder.html', title='Decoder')
 
 
 @app.route('/encoder_success')
@@ -33,13 +33,13 @@ def encoder_success():
         log = 'image saved successfully'
     else:
         log = 'an error in the encoding function'
-    return render_template('encoder_success.html', text=log)
+    return render_template('encoder_success.html', text=log, title='Encoder success')
 
 
 @app.route('/decoder_success')
 def decoder_success():
     text = decode()
-    return render_template('encoder_success.html', text=text)
+    return render_template('encoder_success.html', text=text, title='Decoder success')
 
 
 if __name__ == '__main__':
