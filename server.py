@@ -13,7 +13,7 @@ def start():
 
 
 @app.route('/encoder', methods=['GET', 'POST'])
-def login():
+def encoder():
     global text
     form = InputTextForm()
     if form.validate_on_submit():
@@ -22,14 +22,9 @@ def login():
     return render_template('encoder.html', form=form)
 
 
-#@app.route('/decoder', methods=['GET', 'POST'])
-#def login():
-#    global text
-#    form = InputTextForm()
-#    if form.validate_on_submit():
-#        text = str(form.text.data)
-#        return redirect('/decoder_success')
-#    return render_template('decoder.html', form=form)
+@app.route('/decoder', methods=['GET', 'POST'])
+def decoder():
+    return render_template('decoder.html')
 
 
 @app.route('/encoder_success')
@@ -39,6 +34,12 @@ def encoder_success():
     else:
         log = 'an error in the encoding function'
     return render_template('encoder_success.html', text=log)
+
+
+@app.route('/decoder_success')
+def decoder_success():
+    text = decode()
+    return render_template('encoder_success.html', text=text)
 
 
 if __name__ == '__main__':
