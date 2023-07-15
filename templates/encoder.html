@@ -12,10 +12,12 @@
         </div>
       {% endfor %}
     </p>
+    <p>{{ form.submit(type="submit", class="btn btn-warning") }}</p>
     {% if message %}
       <div class="alert alert-warning" role="alert">
         {{ message }}
       </div>
     {% endif %}
   </form>
+  {{ text }}
 {% endblock %}

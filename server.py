@@ -15,25 +15,18 @@ def start():
 @app.route('/encoder', methods=['GET', 'POST'])
 def encoder():
     global text
+    log = ''
     form = InputTextForm()
     if form.validate_on_submit():
         text = str(form.text.data)
-        return redirect('/encoder_success')
-    return render_template('encoder.html', form=form, title='Encoder')
+        log = encode(text)
+        return redirect('/download_image')
+    return render_template('encoder.html', form=form, title='Encoder', text=log)
 
 
 @app.route('/decoder', methods=['GET', 'POST'])
 def decoder():
     return render_template('decoder.html', title='Decoder')
-
-
-@app.route('/encoder_success')
-def encoder_success():
-    if encode(text) == 'image saved successfully':
-        log = 'image saved successfully'
-    else:
-        log = 'an error in the encoding function'
-    return render_template('encoder_success.html', text=log, title='Encoder success')
 
 
 @app.route('/decoder_success')
