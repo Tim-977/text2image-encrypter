@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, redirect, render_template, request, send_file
 
 from forms.user import InputTextForm
@@ -24,15 +26,20 @@ def encoder():
     return render_template('encoder.html', form=form, title='Encoder', text=log)
 
 
-@app.route('/decoder', methods=['GET', 'POST'])
-def decoder():
-    return render_template('decoder.html', title='Decoder')
+@app.route('/upload', methods=['GET'])
+def upload_form():
+    return render_template('upload.html')
 
 
-@app.route('/decoder_success')
-def decoder_success():
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    upload_dir = 'uploads'
+    if not os.path.exists(upload_dir):
+        os.makedirs(upload_dir)
+    file.save(os.path.join(upload_dir, file.filename))
     text = decode()
-    return render_template('decoder_success.html', text=text, title='Decoder success')
+    return f'<h2>{text}</h2>'
 
 
 @app.route('/download_image')

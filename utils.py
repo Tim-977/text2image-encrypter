@@ -1,3 +1,4 @@
+import os
 from math import ceil, sqrt
 
 from PIL import Image
@@ -50,7 +51,13 @@ def decode():
     for elem in characters:
         dct['0' * 4 + hex(ord(elem))[2:]] = elem
 
-    image_path = "static\\output.png"
+    #image_path = "uploads\\output.png"
+    folder_path = 'uploads'
+    file_list = os.listdir(folder_path)
+
+    file_name = file_list[0]
+    image_path = os.path.join(folder_path, file_name)
+    print(image_path)
     encoded_text = ""
 
     image = Image.open(image_path)
