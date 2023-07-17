@@ -64,19 +64,21 @@ def decode():
     width, height = image.size
 
     pixels = image.load()
+    try:
+        for y in range(height):
+            for x in range(width):
+                r, g, b = pixels[x, y]
 
-    for y in range(height):
-        for x in range(width):
-            r, g, b = pixels[x, y]
+                hex_color = f"#{r:02x}{g:02x}{b:02x}"[
+                    1:][:3] + f"#{r:02x}{g:02x}{b:02x}"[1:][
+                        4] + f"#{r:02x}{g:02x}{b:02x}"[1:][
+                            3] + f"#{r:02x}{g:02x}{b:02x}"[1:][5:]
 
-            hex_color = f"#{r:02x}{g:02x}{b:02x}"[
-                1:][:3] + f"#{r:02x}{g:02x}{b:02x}"[1:][
-                    4] + f"#{r:02x}{g:02x}{b:02x}"[1:][
-                        3] + f"#{r:02x}{g:02x}{b:02x}"[1:][5:]
-
-            if hex_color in dct:
-                encoded_text += dct[hex_color]
-
+                if hex_color in dct:
+                    encoded_text += dct[hex_color]
+    except Exception as e:
+        os.remove(image_path)
+        return 'Error: {e} <br>Most likely the wrong file has been given'
     return encoded_text, image_path
 
 
