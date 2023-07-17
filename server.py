@@ -39,7 +39,10 @@ def upload_file():
         if not os.path.exists(upload_dir):
             os.makedirs(upload_dir)
         file.save(os.path.join(upload_dir, file.filename))
-        text, file_path = decode()
+        try:
+            text, file_path = decode()
+        except ValueError as e:
+            return f'Error: {e} <br>Most likely the wrong file has been given'
         try:
             os.remove(file_path)
             print(f"File '{file_path}' successfully deleted.")
