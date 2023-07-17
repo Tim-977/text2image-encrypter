@@ -1,7 +1,9 @@
+import os
+
 from flask import Flask, redirect, render_template, request, send_file
 
 from forms.user import InputTextForm
-from utils import decode, encode
+from utils import decode, encode, allowed_file
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '9@K#3jP!2dR$5sF6gV%1hL&8kM4nT7bY*0cX2zQ1wE4'
@@ -24,15 +26,32 @@ def encoder():
     return render_template('encoder.html', form=form, title='Encoder', text=log)
 
 
-@app.route('/decoder', methods=['GET', 'POST'])
-def decoder():
-    return render_template('decoder.html', title='Decoder')
+@app.route('/upload', methods=['GET'])
+def upload_form():
+    return render_template('upload.html')
 
 
-@app.route('/decoder_success')
-def decoder_success():
-    text = decode()
-    return render_template('decoder_success.html', text=text, title='Decoder success')
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        upload_dir = 'uploads'
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
+        file.save(os.path.join(upload_dir, file.filename))
+        text, file_path = decode()
+        try:
+            os.remove(file_path)
+            print(f"File '{file_path}' successfully deleted.")
+        except FileNotFoundError:
+            print(f"File '{file_path}' not found.")
+        except PermissionError:
+            print(f"Permission denied. Unable to delete '{file_path}'.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+        return f'<h2>{text}</h2>'
+    return 'Invalid file format. Only PNG files are allowed.'
+    
 
 
 @app.route('/download_image')

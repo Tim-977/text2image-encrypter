@@ -1,6 +1,9 @@
+import os
 from math import ceil, sqrt
 
 from PIL import Image
+
+allowed_extensions = {'png'}
 
 # !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ 
 
@@ -50,7 +53,11 @@ def decode():
     for elem in characters:
         dct['0' * 4 + hex(ord(elem))[2:]] = elem
 
-    image_path = "static\\output.png"
+    folder_path = 'uploads'
+    file_list = os.listdir(folder_path)
+
+    file_name = file_list[0]
+    image_path = os.path.join(folder_path, file_name)
     encoded_text = ""
 
     image = Image.open(image_path)
@@ -70,4 +77,8 @@ def decode():
             if hex_color in dct:
                 encoded_text += dct[hex_color]
 
-    return encoded_text
+    return encoded_text, image_path
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
