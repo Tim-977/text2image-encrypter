@@ -3,6 +3,8 @@ from math import ceil, sqrt
 
 from PIL import Image
 
+allowed_extensions = {'png'}
+
 # !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~ 
 
 def encode(word):
@@ -76,3 +78,7 @@ def decode():
                 encoded_text += dct[hex_color]
 
     return encoded_text, image_path
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions

@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Upload Image</h2>
-<form method="POST" enctype="multipart/form-data" action="/upload">
-  <input type="file" name="file">
-  <input type="submit" value="Upload">
-</form>
+  <h2>Upload Image</h2>
+  <form method="POST" enctype="multipart/form-data" action="/upload">
+    <input type="file" id="fileInput" name="file" onchange="updateButtonStatus()">
+    <input type="submit" id="uploadButton" value="Upload" disabled>
+
+    <script>
+        function updateButtonStatus() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.getElementById('uploadButton');
+
+            if (fileInput.value) {
+                uploadButton.disabled = false;
+            } else {
+                uploadButton.disabled = true;
+            }
+        }
+    </script>
+  </form>
 {% endblock %}
