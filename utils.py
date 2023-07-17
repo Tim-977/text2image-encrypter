@@ -51,13 +51,11 @@ def decode():
     for elem in characters:
         dct['0' * 4 + hex(ord(elem))[2:]] = elem
 
-    #image_path = "uploads\\output.png"
     folder_path = 'uploads'
     file_list = os.listdir(folder_path)
 
     file_name = file_list[0]
     image_path = os.path.join(folder_path, file_name)
-    print(image_path)
     encoded_text = ""
 
     image = Image.open(image_path)
@@ -77,4 +75,4 @@ def decode():
             if hex_color in dct:
                 encoded_text += dct[hex_color]
 
-    return encoded_text
+    return encoded_text, image_path

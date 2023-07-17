@@ -38,7 +38,16 @@ def upload_file():
     if not os.path.exists(upload_dir):
         os.makedirs(upload_dir)
     file.save(os.path.join(upload_dir, file.filename))
-    text = decode()
+    text, file_path = decode()
+    try:
+        os.remove(file_path)
+        print(f"File '{file_path}' successfully deleted.")
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found.")
+    except PermissionError:
+        print(f"Permission denied. Unable to delete '{file_path}'.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
     return f'<h2>{text}</h2>'
 
 
