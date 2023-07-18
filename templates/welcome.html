@@ -1,5 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome page</h1>
+  <div class="container">
+    <a class="btn btn-warning custom-btn" href="/encoder">Encode</a>
+    <span style="margin: 85px;"></span>
+    <a class="btn btn-warning custom-btn" href="/upload">Decode</a>
+  </div>
+  
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40vh;
+      padding: 15px 50px;
+      font-size: 30px;
+      border-radius: 40px;
+    }
+
+    .custom-btn {
+      padding: 15px 50px;
+      font-size: 30px;
+      border-radius: 40px;
+    }
+  </style>
 {% endblock %}

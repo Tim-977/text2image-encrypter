@@ -36,6 +36,7 @@ def upload_form():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    status = 'success'
     file = request.files['file']
     if file and allowed_file(file.filename):
         upload_dir = 'uploads'
@@ -45,18 +46,26 @@ def upload_file():
         try:
             text, file_path = decode()
         except ValueError as e:
-            return f'Error: {e} <br>Most likely the wrong file has been given'
+            status = 'error'
+            return render_template('decode_success.html', text=f'Error: {e} <br>Most likely the wrong file has been given', status=status)
+            # return f'Error: {e} <br>Most likely the wrong file has been given'
         try:
             os.remove(file_path)
             print(f"File '{file_path}' successfully deleted.")
         except FileNotFoundError:
+            status = 'error'
             print(f"File '{file_path}' not found.")
         except PermissionError:
+            status = 'error'
             print(f"Permission denied. Unable to delete '{file_path}'.")
         except Exception as e:
+            status = 'error'
             print(f"An error occurred: {e}")
-        return f'<h2>{text}</h2>'
-    return 'Invalid file format. Only PNG files are allowed.'
+        # return f'<h2>{text}</h2>'
+        return render_template('decode_success.html', text=text, status=status) 
+    status = 'error'
+    # return 'Invalid file format. Only PNG files are allowed.'
+    return render_template('decode_success.html', text=f'Invalid file format. Only PNG files are allowed.', status=status)
     
 
 
