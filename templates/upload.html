@@ -6,17 +6,6 @@
     <input type="file" id="fileInput" name="file" onchange="updateButtonStatus()">
     <input type="submit" id="uploadButton" value="Upload" disabled>
 
-    <script>
-        function updateButtonStatus() {
-            const fileInput = document.getElementById('fileInput');
-            const uploadButton = document.getElementById('uploadButton');
-
-            if (fileInput.value) {
-                uploadButton.disabled = false;
-            } else {
-                uploadButton.disabled = true;
-            }
-        }
-    </script>
+    <script src="static/script.js"></script>
   </form>
 {% endblock %}
