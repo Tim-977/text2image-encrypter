@@ -22,6 +22,9 @@ def encoder():
     if form.validate_on_submit():
         text = str(form.text.data)
         log = encode(text)
+        print(f'LOG: {log}')
+        if 'Unexpected character' in log:
+            return f'<h2>{log}</h2>'
         return redirect('/download_image')
     return render_template('encoder.html', form=form, title='Encoder', text=log)
 

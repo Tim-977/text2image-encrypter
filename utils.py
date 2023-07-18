@@ -20,6 +20,7 @@ def encode(word):
     try:
         colors = [dct[elem] for elem in word]
     except KeyError as exception:
+        print(f'\n\nERROR\n{exception}')
         return ('Unexpected character', exception)
 
     width = height = ceil(sqrt(len(word)))
