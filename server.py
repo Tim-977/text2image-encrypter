@@ -47,8 +47,7 @@ def upload_file():
             text, file_path = decode()
         except ValueError as e:
             status = 'error'
-            return render_template('decode_success.html', text=f'Error: {e} <br>Most likely the wrong file has been given', status=status)
-            # return f'Error: {e} <br>Most likely the wrong file has been given'
+            return render_template('decode_success.html', text=f'{e}: \n Most likely the wrong file has been given', status=status)
         try:
             os.remove(file_path)
             print(f"File '{file_path}' successfully deleted.")
@@ -61,12 +60,9 @@ def upload_file():
         except Exception as e:
             status = 'error'
             print(f"An error occurred: {e}")
-        # return f'<h2>{text}</h2>'
         return render_template('decode_success.html', text=text, status=status) 
     status = 'error'
-    # return 'Invalid file format. Only PNG files are allowed.'
     return render_template('decode_success.html', text=f'Invalid file format. Only PNG files are allowed.', status=status)
-    
 
 
 @app.route('/download_image')

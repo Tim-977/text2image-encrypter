@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
-  <h2>Upload An Image</h2>
   <br>
-  <form method="POST" enctype="multipart/form-data" action="/upload">
-    <input type="file" id="fileInput" name="file" onchange="updateButtonStatus()">
-    <input type="submit" id="uploadButton" value="Upload" disabled>
-
-    <script src="static/script.js"></script>
-  </form>
+  {% if status == 'success' %}
+    <h2>Decoded text:</h2>
+    <br>
+    <h3>{{ text }}</h3>
+  {% else %}
+    <h2>Error</h2>
+    <br>
+    <h3>{{ text }}</h3>
+  {% endif %}
 {% endblock %}
